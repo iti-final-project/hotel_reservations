@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 # Aya's Routes
-
+//models
 
 # John's Routes
 Route::get('/',function (){
