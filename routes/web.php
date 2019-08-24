@@ -43,7 +43,7 @@ Route::get('/register',function (){
 
 # Yomna's Routes
 Route::get('hotel','HotelController@registeration');
-Route::post('hotel','HotelController@register');
+Route::post('hotel','HotelController@store');
 
 
 
