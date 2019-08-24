@@ -26,15 +26,15 @@ Route::get('/',function (){
 })->name('homepage');
 
 Route::get('/hotels',function (){
-    return 'none';
+    return view('hotels');
 })->name('hotels');
 
 Route::get('/login',function (){
-    return 'none';
+    return view('login');
 })->name('login');
 
 Route::get('/register',function (){
-    return 'none';
+    return view('registration');
 })->name('registration');
 
 
