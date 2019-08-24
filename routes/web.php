@@ -47,7 +47,7 @@ Route::post('hotel','HotelController@register')->name('performLogin');
 
 
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
