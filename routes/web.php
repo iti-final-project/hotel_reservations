@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,11 +47,12 @@ Route::post('hotel','HotelController@register')->name('performLogin');
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::fallback(function (){
     return 'invalid request';
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
