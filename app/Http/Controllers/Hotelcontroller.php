@@ -16,12 +16,12 @@ class Hotelcontroller extends Controller
     public function register(Request $request){
         $name = $request->input('name');
         $telephone = $request->input('telephone');
-        $disprict = $request->input('disprict');
+        $district = $request->input('district');
         $city = $request->input('city');
         $country = $request->input('country');
         //what is the clicks?********************************************
         $clicks = $request->input('clicks');
-        $data=array("name"=>$name,"telephone"=>$telephone,"disprict"=>$disprict,"city"=>$city,"country"=>$country,"clicks"=>$clicks);
+        $data=array("name"=>$name,"telephone"=>$telephone,"district"=>$district,"city"=>$city,"country"=>$country,"clicks"=>$clicks);
         DB::table('hotel')->insert($data);
         echo "Record inserted successfully.<br/>";
 
