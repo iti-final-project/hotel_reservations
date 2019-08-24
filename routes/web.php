@@ -17,4 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+# Aya's Routes
 
+
+# John's Routes
+
+
+# Nayra's Routes
+
+
+# Yomna's Routes
