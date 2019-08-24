@@ -16,15 +16,17 @@ class CreateHotelsTable extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('username');
-            $table->unsignedBigInteger('password');
-            $table->string('email');
+            $table->string('username')->nullable(false);
+            $table->string('password')->nullable(false);
+            $table->string('email')->nullable(false);
             $table->string('country');
             $table->string('city');
             $table->string('district');
             $table->bigInteger('telephone');
             $table->bigInteger('click')->default(0)->nullable(false);
-            $table->timestamps();
+            $table->timestamp('email-verified-at');
+            $table->string('remember-token');
+
         });
     }
 
