@@ -50,3 +50,7 @@ Route::post('hotel','HotelController@register')->name('performLogin');
 Route::fallback(function (){
     return 'invalid request';
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
