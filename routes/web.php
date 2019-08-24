@@ -13,17 +13,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 # Aya's Routes
 
 
 # John's Routes
+Route::get('/',function (){
+    return view('home');
+})->name('homepage');
+
+Route::get('/hotels',function (){
+    return 'none';
+})->name('hotels');
+
+Route::get('/login',function (){
+    return 'none';
+})->name('login');
+
+Route::get('/register',function (){
+    return 'none';
+})->name('registration');
 
 
 # Nayra's Routes
 
 
 # Yomna's Routes
+
+
+
+
+Route::fallback(function (){
+    return 'invalid request';
+});
