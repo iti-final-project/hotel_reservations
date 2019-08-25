@@ -3,9 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Hotel extends Model
+class Hotel extends Authenticatable
 {
-    protected $fillable=['name','username','password','email','country','city','district','telephone'];
+    protected $fillable=['name','username','email','country','city','district','telephone'];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
 }
