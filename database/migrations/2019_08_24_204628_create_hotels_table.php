@@ -16,14 +16,14 @@ class CreateHotelsTable extends Migration
         Schema::create('hotels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('username')->nullable(false);
-            $table->string('email')->nullable(false);
-            $table->timestamp('email-verified-at');
-            $table->string('password')->nullable(false);
-            $table->string('remember-token');
-            $table->string('country');
-            $table->string('city');
-            $table->string('district');
+            $table->string('username')->nullable();
+            $table->string('email')->nullable()->unique();
+            $table->timestamp('email-verified-at')->nullable();
+            $table->string('password')->nullable();
+            $table->rememberToken();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('district')->nullable();
             $table->string('telephone');
             $table->bigInteger('clicks')->default(0)->nullable(false);
 
