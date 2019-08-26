@@ -66,9 +66,12 @@ class LoginController extends Controller
 
         $password = $credentials['password'];
 
+        $remember = $request->input('keepLogin')?true:false;
+
         if(($user = Hotel::where('email', $email))->count() > 0){
+            $user = $user->first();
             if(Hash::check($password,$user->password)){
-                if (Auth::attempt($credentials)){
+                if (Auth::attempt($credentials,$remember)){
                     return $this->sendLoginResponse($request);
                 }
             }
