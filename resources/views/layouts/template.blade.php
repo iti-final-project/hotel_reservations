@@ -10,6 +10,10 @@
         <style>
             body{
                 padding-top: 65px;
+                padding-bottom: 30px;
+            }
+            .login_image{
+                height: 50px;
             }
         </style>
     </head>
@@ -32,7 +36,7 @@
                                 <a class="nav-link" href="{{ route('homepage') }}">Home<span class="sr-only">(current)</span></a>
                             </li>
 
-                            @if(url() === route('hotels'))
+                            @if(url()->current() === route('hotels'))
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item:">
@@ -40,7 +44,7 @@
                                 <a class="nav-link" href="{{ route('hotels') }}">Hotels</a>
                             </li>
 
-                            @if(url() === route('login'))
+                            @if(url()->current() === route('login'))
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item:">
@@ -48,7 +52,7 @@
                                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                             </li>
 
-                            @if(url() === route('registration'))
+                            @if(url()->current() === route('registration'))
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item:">
