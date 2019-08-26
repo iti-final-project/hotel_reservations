@@ -40,6 +40,7 @@ Route::get('/register',function (){
 
 
 # Nayra's Routes
+Route::get('/list/{click_no}','SearchController@List');
 
 
 # Yomna's Routes
