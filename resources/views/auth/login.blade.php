@@ -10,22 +10,26 @@
             <div class="col-12">
                 <form method="post" action="{{ route('login') }}">
                     <div class="form-group">
+                        @error('form')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                         @csrf
+                        <label for="username">Email</label>
+                        <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" aria-describedby="emailHelp"
+                              value="{{ old('email') }}" placeholder="Enter email">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                         @enderror
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" name="email" id="email" aria-describedby="emailHelp"
-                               placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                            else.</small>
+
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" data-toggle="password"  name="password"  id="password"
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"  id="password"
                                    placeholder="Password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -33,6 +37,11 @@
                                 </div>
                             </div>
                         </div>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" name="keepLogin" id="keepLogin">
