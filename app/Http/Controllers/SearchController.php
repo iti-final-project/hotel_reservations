@@ -19,7 +19,6 @@ class SearchController extends Controller
             $click_no=floor($click_no /10);
             $data = DB::table('hotels')->orderBy('clicks', 'desc')->offset($click_no)->limit(10)->get();
         }
-
         dd($data);
     }
 }
