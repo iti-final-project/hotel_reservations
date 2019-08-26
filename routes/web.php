@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::get('/register',function (){
 
 
 # Nayra's Routes
+Route::get('/list/{click_no}','SearchController@List');
 
 
 # Yomna's Routes
@@ -47,7 +49,12 @@ Route::post('hotel','HotelController@register');
 
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::fallback(function (){
     return 'invalid request';
 });
+
+
