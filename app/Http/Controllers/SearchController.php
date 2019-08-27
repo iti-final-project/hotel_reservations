@@ -19,6 +19,7 @@ class SearchController extends Controller
 
         }else{
             $click_no=floor($click_no /10)*10;
+
         }
         $data = DB::table('hotels')->select('name','email','country','city','telephone',
             'district')
