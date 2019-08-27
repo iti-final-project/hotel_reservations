@@ -40,21 +40,14 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    public function showRegistrationForm()
+    {
+        $countries = json_decode(file_get_contents("http://country.io/names.json"),true);
+        sort($countries);
+        return view('auth.register',['countries'=>$countries]);
+    }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
 
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(RegisterStoreRequest $request)
     {
          Hotel::create($request->all());
