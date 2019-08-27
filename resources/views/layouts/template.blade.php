@@ -16,9 +16,6 @@
                 padding-top: 65px;
                 padding-bottom: 30px;
             }
-            .login_image{
-                height: 50px;
-            }
             #password + .input-group-append {
                 cursor: pointer;
                 pointer-events: all;
@@ -119,20 +116,23 @@
                 $("#logout").on("click",function () {
                     event.preventDefault();
                     $("#logout-form").submit();
-                })
+                });
+
                 $("#password + .input-group-append").on("click",function () {
+                    let eye = $('[data-icon^=eye]');
                     let password = $("#password");
-                    let eye = $('.svg-inline--fa');
                     if (password.attr('type') === "password") {
                         password.attr('type', 'text');
-                        eye.toggleClass('fa-eye-slash').toggleClass('fa-eye');
+                        eye.eq(0).toggleClass('fa-eye-slash').toggleClass('fa-eye');
                     } else {
                         password.attr('type', 'password');
-                        eye.toggleClass('fa-eye-slash').toggleClass('fa-eye');
+                        eye.eq(0).toggleClass('fa-eye-slash').toggleClass('fa-eye');
                     }
                 })
+
             })
 
         </script>
+    @yield('scripts')
     </body>
 </html>

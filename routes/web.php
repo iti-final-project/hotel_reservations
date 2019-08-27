@@ -30,14 +30,6 @@ Route::get('/hotels',function (){
     return view('hotels');
 })->name('hotels');
 
-Route::get('/login',function (){
-    return view('login');
-})->name('login');
-
-Route::get('/register',function (){
-    return view('registration');
-})->name('registration');
-
 
 # Nayra's Routes
 Route::get('/list/{click_no}','SearchController@List');
