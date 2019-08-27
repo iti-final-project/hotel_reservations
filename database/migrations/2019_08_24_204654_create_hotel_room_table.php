@@ -20,7 +20,6 @@ class CreateHotelRoomTable extends Migration
             $table->unsignedBigInteger('price');
             $table->bigInteger('number');
             $table->timestamps();
-
             $table->foreign('hotel_id')->references('id')->on('hotels');
             $table->foreign('room_id')->references('id')->on('rooms');
         });
