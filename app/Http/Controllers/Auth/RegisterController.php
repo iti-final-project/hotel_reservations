@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -41,13 +40,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function showRegistrationForm()
-    {
-        $countries = json_decode(file_get_contents("http://country.io/names.json"),true);
-        sort($countries);
-        return view('auth.register',['countries'=>$countries]);
-    }
-
     /**
      * Get a validator for an incoming registration request.
      *
@@ -58,7 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:hotels'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -76,10 +68,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-    }
-
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
     }
 }
