@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'name' => trim($request->get('name')),
             'user_name' => trim($request->get('username')),
             'password' => trim($request->Hash::make(get('password'))),
-            'confirm_password' => trim($request->->Hash::make(get('password_confirm'))),
+            'confirm_password' => trim($request->Hash::make(get('password_confirm'))),
             'country' => trim($request->get('country')),
             'city' => trim($request->get('city')),
             'district' => trim($request->get('district')),

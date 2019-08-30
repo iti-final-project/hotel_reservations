@@ -26,7 +26,7 @@
         <div class="container-fluid">
             <header>
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="{{ route('homepage') }}">Hotels Reservations</a>
+                    <a class="navbar-brand" href="{{ route('homepage') }}"><b>Hotels Reservations</b></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -39,21 +39,28 @@
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item">
-                                    @endif
-                                    <a class="nav-link" href="{{ route('homepage') }}">Home<span
-                                            class="sr-only">(current)</span></a>
-                                </li>
+                            @endif
+                            <a class="nav-link" href="{{ route('homepage') }}">Home<span
+                                    class="sr-only">(current)</span></a>
+                            </li>
 
-                                @if(url()->current() === route('hotels'))
-                                    <li class="nav-item active">
-                                @else
-                                    <li class="nav-item">
-                                        @endif
-                                        <a class="nav-link" href="{{ route('hotels') }}">Hotels</a>
-                                    </li>
-
-
+                            @if(url()->current() === route('hotels'))
+                                <li class="nav-item active">
+                            @else
+                                <li class="nav-item">
+                            @endif
+                                <a class="nav-link" href="{{ route('hotels') }}">Hotels</a>
+                            </li>
                         </ul>
+
+                        @if(Route::current()->getName() !== 'hotels')
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search by name"
+                                   aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                        @endif
+
                         <ul class="navbar-nav ml-auto">
                             @auth
                                 <li class="nav-item">
@@ -81,11 +88,7 @@
                             @endif
                         </ul>
 
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search by name"
-                                   aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
+
                     </div>
                 </nav>
             </header>
@@ -113,7 +116,7 @@
         <script src="{{ asset('font-awesome/js/all.min.js') }}"></script>
         <script>
             $(document).ready(function () {
-                $("#logout").on("click",function () {
+                $("#logout").on("click",function (event) {
                     event.preventDefault();
                     $("#logout-form").submit();
                 });

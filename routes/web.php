@@ -25,14 +25,12 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/',function (){
     return view('home');
 })->name('homepage');
-
-Route::get('/hotels',function (){
-    return view('hotels');
-})->name('hotels');
+Route::get('hotels/{username}/profile','HotelController@show')->name('profile');
+Route::get('/hotels/{start?}', 'SearchController@Listing')->name('hotels');
 
 
 # Nayra's Routes
-Route::get('/list/{click_no}','SearchController@List');
+Route::get('/hotels/{click_no}','SearchController@Listing');
 
 
 # Yomna's Routes
