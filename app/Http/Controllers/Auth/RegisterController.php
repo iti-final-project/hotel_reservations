@@ -50,49 +50,54 @@ class RegisterController extends Controller
         return view('auth.register',['countries'=>$countries]);
     }
 
+    protected function register(Request $request){
+        this->validator($request->all())->validate();
+        event(new Registered($user = $this->create($request->all())));
+        $this->guard()->login($user);
 
-    public function register(Request $request)
+        return $this->registered($request , $user)
+            ?: $this->redirect($this->redirectPath());
+            }
+
+    protected function validator(array $data)
     {
-        $validationRequest = Validator::make([
-            'name' => trim($request->get('name')),
-            'user_name' => trim($request->get('username')),
-            'password' => trim($request->Hash::make(get('password'))),
-            'confirm_password' => trim($request->->Hash::make(get('password_confirm'))),
-            'country' => trim($request->get('country')),
-            'city' => trim($request->get('city')),
-            'district' => trim($request->get('district')),
-            'telephone' => trim($request->get('telephone'))
-        ], [
-            'name' => ['required', 'string', 'max:255', 'min:4',
-                'unique:hotels', 'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'user_name' => ['required', 'string', 'max:255', 'min:4', 'unique:hotels', 'without_spaces',
-                'regex:/(^([a-zA-Z]+)(\d+)?$)/u'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:hotels'],
-            'password' => ['required', 'min:8', 'max:100', 'confirmed', 'string',
-                'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/',
+        $validationRequest = Validator::make($data,[
+            'name' => ['required', 'string'],
+            'username' => ['required', 'string',  'min:5', 'unique:hotels',
+                'regex:/(^([a-zA-Z]+)([0-9]+)?$)/u'],
+            'email' => ['required', 'string', 'email', 'unique:hotels'],
+            'password' => ['required', 'min:8', 'confirmed', 'string',
+                 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/',
                 'unique:hotels'],
-            'confirm_password' => ['required', 'same:password', 'confirmed', 'string'],
-            'country' => ['required_with_all :city,district', 'country'],
-            'city' => ['required_with_all :country,district', 'string', 'max:100', 'min:4',
-                'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
-            'district' => ['required_with_all :country,city', 'string', 'min:4', 'max:100',
-                'regex:/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/'],
+            'country' => ['required', 'country'],
+            'city' => ['required', 'string'],
+            'district' => ['required', 'string'],
             'telephone' => ['required', 'numeric', 'phone_number', 'size:11'],
         ]);
 
         if ($validationRequest->fails()) {
             return redirect()->back()->withErrors($validationRequest->errors());
         }
-        else
-            Hotel::create([
-                'name' => trim($request->get('name')),
-                'username' => trim($request->get('username')),
-                'password' => trim($request->get('password')),
-                'country' => trim($request->get('country')),
-                'city' => trim($request->get('city')),
-                'district' => trim($request->get('district')),
-                'telephone' => trim($request->get('telephone'))
-            ]);
-        }
+            }
+
+            protected function create(array $data){
+        return Hotel::create([
+            'name'=>$data['name'],
+            'username'=>$data['username'],
+            'email'=>$data['email'],
+            'password'=>$data['password'],
+            'country'=>$data['country'],
+            'city'=>$data['city'],
+            'district'=>$data['district'],
+            'telephone'=>$data['telephone'],
+
+        ]);
+    }
+
+    protected  function guard()
+    {
+
+    }
+
 
 }
