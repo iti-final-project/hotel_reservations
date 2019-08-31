@@ -34,9 +34,10 @@ Route::get('/hotels/{click_no}','SearchController@Listing');
 
 
 # Yomna's Routes
+Route::post('profile','HotelController@show');
 Route::put('profile','HotelController@update');
-Route::get('profile1','HotelController@delete');
-Route::get('profile2/{id}','HotelController@deleteroom');
+Route::post('profile1','HotelController@delete');
+Route::post('profile2','HotelController@deleteroom');
 
 
 
