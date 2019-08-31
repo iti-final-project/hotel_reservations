@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 use App\Hotel;
 use DB;
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 
 class Hotelcontroller extends Controller
 {
-    public function show(){
-        if(Auth::check()) {
-            $user = Auth::user();
+    public function show(Request $request){
+        $user = $request->all();
             return view('profile')->with($user);
-        }
-        else{
-            return response('Forbidden', 403);
-        }
+
 
     }
 
@@ -25,11 +22,25 @@ class Hotelcontroller extends Controller
         if (Auth::check()) {
             $id = Auth::id();
 
+            $name = $request->input('name');
+            $username = $request->input('username');
+            $email = $request->input('email');
+            $email = $request->input('email');
+            $password = make::hash($request->input('password'));
+            $country = $request->input('country');
+            $city = $request->input('city');
+            $district = $request->input('district');
+            $telephone = $request->input('telephone');
+            $room_id = $request->input('room_id');
+            $price = $request->input('price');
+            $number = $request->input('number');
 
-            $user = $request->all();
+            $user=array('name'=>$name,"username"=>$username,"email"=>$email,"password"=>$password,"country"=>$country,
+                "city"=>$city,"district"=>$district,"telephone"=>$telephone,"room_id"=>$room_id,"price"=>$price,"number"=>$number);
+            //$user = $request->all();
             $user['username'] = Auth::user();
             $user->update();
-            $user->save();
+
 
         } else {
             return response('Forbidden', 403);

@@ -9,10 +9,12 @@ class HotelRoom extends Model
     protected $fillable=['price','number'];
 
     public function hotels(){
-        return $this->hasMany(Hotel::class);
+        return $this->foreign('hotel_id')->references('id')->on('hotel')->onDelete('cascade');
+      // return $this->hasMany(Hotel::class);
     }
 
     public function rooms(){
         return $this->hasMany(Room::class);
     }
+
 }

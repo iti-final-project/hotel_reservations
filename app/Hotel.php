@@ -19,5 +19,8 @@ class Hotel extends Authenticatable
     public function image(){
         return $this->hasMany(Image::class);
     }
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
 
 }
