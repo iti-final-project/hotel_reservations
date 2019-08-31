@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 use App\Hotel;
-use App\HotelRoom;
-use App\Room;
+use DB;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 
 class Hotelcontroller extends Controller
 {
-    public function show($username){
-            $user = Hotel::where('username',$username)->first();
-            return view('profile')->with(['hotel'=>$user]);
+    public function show(){
+        if(Auth::check()) {
+            $user = Auth::user();
+            return view('profile')->with($user);
+        }
+        else{
+            return response('Forbidden', 403);
+        }
+
     }
 
     public function update(Request $request)
