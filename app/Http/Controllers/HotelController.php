@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 
-class Hotelcontroller extends Controller
+class HotelController extends Controller
 {
-    public function show(Request $request){
-        $user = $request->all();
-            return view('profile')->with($user);
-
-
+    public function show($username){
+        $user = Hotel::where('username',$username)->first();
+            return view('profile')->with(['hotel'=>$user]);
     }
 
     public function update(Request $request)
