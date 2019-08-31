@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('title','Hotels')
 @section('content')
-    <div class="col-3">
+    <div class="col-4">
         <p class="text-dark font-weight-bold" style="font-size: xx-large">Hotels</p>
     </div>
     <div class="col-6">

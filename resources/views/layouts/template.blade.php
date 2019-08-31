@@ -35,7 +35,7 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            @if(url()->current() === route('homepage'))
+                            @if(Route::current()->getname() === 'homepage')
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item">
@@ -44,7 +44,7 @@
                                     class="sr-only">(current)</span></a>
                             </li>
 
-                            @if(url()->current() === route('hotels'))
+                            @if(Route::current()->getname() === 'hotels')
                                 <li class="nav-item active">
                             @else
                                 <li class="nav-item">
