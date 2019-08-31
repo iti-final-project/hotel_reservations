@@ -21,7 +21,7 @@ class Hotelcontroller extends Controller
     {
         if (Auth::check()) {
             $id = Auth::id();
-
+            
             $name = $request->input('name');
             $username = $request->input('username');
             $email = $request->input('email');
