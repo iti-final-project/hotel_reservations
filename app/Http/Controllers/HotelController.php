@@ -1,79 +1,60 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Hotel;
 use DB;
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-
-
-<<<<<<< HEAD
-class Hotelcontroller extends Controller
-{
-=======
 class HotelController extends Controller
 {
-<<<<<<<< HEAD:app/Http/Controllers/HotelController.php
     public function show($username){
         $user = Hotel::where('username',$username)->first();
-            return view('profile')->with(['hotel'=>$user]);
-========
->>>>>>> origin/master
-    public function show(){
-        if(Auth::check()) {
-            $user = Auth::user();
-            return view('profile')->with($user);
-        }
-        else{
-            return response('Forbidden', 403);
-        }
-
-<<<<<<< HEAD
-=======
->>>>>>>> origin/master:app/Http/Controllers/Hotelcontroller.php
->>>>>>> origin/master
+        return view('profile')->with(['hotel'=>$user]);
     }
-
     public function update(Request $request)
     {
         if (Auth::check()) {
             $id = Auth::id();
 
-
-            $user = $request->all();
+            $name = $request->input('name');
+            $username = $request->input('username');
+            $email = $request->input('email');
+            $email = $request->input('email');
+            $password = make::hash($request->input('password'));
+            $country = $request->input('country');
+            $city = $request->input('city');
+            $district = $request->input('district');
+            $telephone = $request->input('telephone');
+            $room_id = $request->input('room_id');
+            $price = $request->input('price');
+            $number = $request->input('number');
+            $user=array('name'=>$name,"username"=>$username,"email"=>$email,"password"=>$password,"country"=>$country,
+                "city"=>$city,"district"=>$district,"telephone"=>$telephone,"room_id"=>$room_id,"price"=>$price,"number"=>$number);
+            //$user = $request->all();
             $user['username'] = Auth::user();
             $user->update();
-            $user->save();
-
         } else {
             return response('Forbidden', 403);
         }
     }
     //delete hotels data
-        public function delete(Request $request){
-            if (Auth::check()) {
-                $user['username'] = Auth::user();
-                $user->delete();
-
-            }
-            else{
-                return response('Forbidden', 403);
-            }
-
-        }
-        //delete hotels_room
-    public function deleteroom(Request $request){
+    public function delete(Request $request){
         if (Auth::check()) {
-            $room = $request->all();
-            DB::delete('delete from hotel_room where id = ?',[$room['id']]);
-
+            $user['username'] = Auth::user();
+            $user->delete();
         }
         else{
             return response('Forbidden', 403);
         }
-
     }
-
-
-
+    //delete hotels_room
+    public function deleteroom(Request $request){
+        if (Auth::check()) {
+            $room = $request->all();
+            DB::delete('delete from hotel_room where id = ?',[$room['id']]);
+        }
+        else{
+            return response('Forbidden', 403);
+        }
+    }
 }
