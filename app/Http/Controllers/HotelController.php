@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 use App\Hotel;
-use DB;
-use http\Env\Request;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 class HotelController extends Controller
 {
     public function show($username){
