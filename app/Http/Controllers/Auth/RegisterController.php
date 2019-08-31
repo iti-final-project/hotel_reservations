@@ -50,8 +50,8 @@ class RegisterController extends Controller
         return view('auth.register',['countries'=>$countries]);
     }
 
-    protected function register(Request $request){
-        this->validator($request->all())->validate();
+    public function register(Request $request){
+        $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
         $this->guard()->login($user);
 
