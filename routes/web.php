@@ -25,8 +25,27 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/',function (){
     return view('home');
 })->name('homepage');
+
 Route::get('hotels/{username}/profile','HotelController@show')->name('profile');
+
 Route::get('/hotels/{start?}', 'SearchController@Listing')->name('hotels');
+
+Route::get('/test',function (){
+    return view('test');
+});
+
+Route::get('/settings','HotelController@showAuth')
+    ->name('settings')
+    ->middleware('authenticated');
+Route::get('/settings/hotel_room','HotelController@showAuth')
+    ->name('hotel_room')
+    ->middleware('authenticated');
+Route::get('/settings/hotel_image','HotelController@showAuth')
+    ->name('hotel_image')
+    ->middleware('authenticated');
+Route::get('/settings/password','HotelController@showAuth')
+    ->name('passwordChange')
+    ->middleware('authenticated');
 
 
 # Nayra's Routes

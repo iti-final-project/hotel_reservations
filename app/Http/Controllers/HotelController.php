@@ -13,6 +13,29 @@ class HotelController extends Controller
         $user = Hotel::where('username',$username)->first();
         return view('profile')->with(['hotel'=>$user]);
     }
+
+    public function showAuth(Request $request){
+        $user = Hotel::find(Auth::id());
+        switch ($request->route()->getName()){
+            case 'settings':
+                $countries = json_decode(file_get_contents("http://country.io/names.json"),true);
+                sort($countries);
+                return view('settings.updateAbout')->with(['hotel'=>$user,'countries'=>$countries]);
+                break;
+            case 'hotel_room':
+                return view('settings.updateRooms')->with(['rooms'=>$user->rooms]);
+                break;
+            case 'hotel_image':
+                return view('settings.updateRooms')->with(['images'=>$user->images]);
+                break;
+            case 'passwordChange':
+                return view('settings.updatePassword');
+                break;
+
+        }
+
+    }
+
     public function update(Request $request)
     {
         if (Auth::check()) {
@@ -20,7 +43,6 @@ class HotelController extends Controller
 
             $name = $request->input('name');
             $username = $request->input('username');
-            $email = $request->input('email');
             $email = $request->input('email');
             $password = make::hash($request->input('password'));
             $country = $request->input('country');

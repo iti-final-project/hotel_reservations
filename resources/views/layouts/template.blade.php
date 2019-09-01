@@ -63,8 +63,18 @@
 
                         <ul class="navbar-nav ml-auto">
                             @auth
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" id="logout">logout</a>
+
+                                <li class="nav-item dropdown">
+                                    <div class="btn-group">
+                                        <a href="{{ route('profile',['username'=>Auth::user()->username]) }}" class="btn text-light">{{ Auth::user()->username }}</a>
+                                        <button type="button" class="btn text-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu bg-dark">
+                                            <a class="dropdown-item bg-dark text-light" href="{{ route('settings') }}">Settings</a>
+                                            <a class="dropdown-item bg-dark text-light" href="#" id="logout">Logout</a>
+                                        </div>
+                                    </div>
                                 </li>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" >
