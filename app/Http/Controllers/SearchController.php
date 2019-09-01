@@ -15,10 +15,10 @@ class SearchController extends Controller
                 $by = $_GET['searchBy'] ? $_GET['searchBy'] : 'name';
                 if ($by === "location") {
                     $data = Hotel::where("country", 'like', $query)->orWhere("city" ,"like" ,$query)
-                    ->orWhere("district","like",$query)->offset($start);
+                    ->orWhere("district","like",$query)->orderBy('clicks')->offset($start);
                     $count = $data->count();
                 } else {
-                    $data = Hotel::select("name")->where("name", "=", $query)->offset($start);
+                    $data = Hotel::select("name")->where("name", "=", $query)->orderBy('clicks')->offset($start);
                     $count = $data->count();
                 }
 
@@ -39,6 +39,7 @@ class SearchController extends Controller
                 $data = Hotel::select('id', 'name', 'desc', 'username', 'country', 'city',
                     'district', 'updated_at')
                     ->orderBy('clicks', 'desc')->offset($start)->limit($limit_no)->get();
+
             }
             $next = $start + 10 >= $count ? false : true;
             $prev = $start < 10 ? false : true;
