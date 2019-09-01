@@ -49,7 +49,7 @@ Route::get('/settings/password','HotelController@showAuth')
 
 
 # Nayra's Routes
-Route::get('/hotels/{click_no}','SearchController@Listing');
+Route::get('/listing/{start}/{query}/{by}','SearchController@Listing');
 
 
 # Yomna's Routes

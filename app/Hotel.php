@@ -5,6 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @method static count()
+ * @method static select(string $string, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6)
+ * @method static where(string $string, string $string1, $query)
+ */
 class Hotel extends Authenticatable
 {
     protected $fillable=['name','username','email','country','city','district','telephone'];
