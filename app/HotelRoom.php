@@ -9,7 +9,7 @@ class HotelRoom extends Model
     protected $fillable=['price','number'];
 
     public function roomType(){
-        return $this->hasOne(Room::class,'id');
+        return $this->hasOne(Room::class,'id','room_id');
     }
 
     public function hotel(){

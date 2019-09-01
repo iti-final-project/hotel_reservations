@@ -17,20 +17,29 @@
     </div>
     @if(isset($hotels))
         @foreach($hotels as $hotel)
+            @php($hotelImages = $hotel->images)
             <div class="col-11 mr-auto ml-auto">
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3 mr-auto ml-auto" style="padding-top:10px; padding-bottom: 10px;">
-                            <img src="{{ asset('images/hotel-presidente-4s.jpg') }}" style="width: 100%;height: 100%" class="card-img" alt="Failed to load Image">
+                            @if(count($hotelImages))
+                                @foreach($hotelImages as $hotelImage)
+                                    @if($hotelImage->type === 'main')
+                                        <img src="{{ Storage::url($hotelImage->link) }}" style="width: 100%;height: 100%" class="card-img" alt="Failed to load Image">
+                                        @break
+                                    @endif
+                                @endforeach
+                            @else
+                                <img src="{{ asset('images/Hotel_default.png') }}" style="width: 100%;height: 100%" class="card-img" alt="Failed to load Image">
+                            @endif
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $hotel->name }}</h5>
                                 @if($hotel->desc)
                                     <p class="card-text">{{ $hotel->desc }}</p>
-                                @endif@php
-                                    $fullAddress = implode(",", array_filter([$hotel->district,$hotel->city,$hotel->country])) ;
-                                @endphp
+                                @endif
+                                @php($fullAddress = implode(",", array_filter([$hotel->district,$hotel->city,$hotel->country])))
                                 @if($fullAddress)
                                 <p class="card-text">Location: {{$fullAddress}}</p>
                                 @endif
