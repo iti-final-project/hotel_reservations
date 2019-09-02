@@ -1,7 +1,7 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>About</h3>
-    <form method="post" action="{{ route('settings') }}" enctype="multipart/form-data">
+    <form method="put" action="{{ route('settings') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="name">Name</label>
