@@ -55,9 +55,7 @@ Route::get('/settings/password','HotelController@showAuth')
 
 # Nayra's Routes
 Route::get('/listing/{start}/{query}/{by}','SearchController@Listing');
-Route::put('/settings/hotel_room',function (){
-    return response()->json('modified');
-})->middleware('authenticated');
+Route::put('/settings','HotelController@updateAbout')->middleware('authenticated');
 
 
 # Yomna's Routes

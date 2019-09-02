@@ -6,6 +6,7 @@ use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 
 class HotelController extends Controller
@@ -37,30 +38,39 @@ class HotelController extends Controller
 
     }
 
-    public function update(Request $request)
+    public function updateAbout(Request $request)
     {
-        if (Auth::check()) {
-            $id = Auth::id();
+        $user = Hotel::find(Auth::id());
 
-            $name = $request->input('name');
-            $username = $request->input('username');
-            $email = $request->input('email');
-            $password = make::hash($request->input('password'));
-            $country = $request->input('country');
-            $city = $request->input('city');
-            $district = $request->input('district');
-            $telephone = $request->input('telephone');
-            $room_id = $request->input('room_id');
-            $price = $request->input('price');
-            $number = $request->input('number');
-            $user=array('name'=>$name,"username"=>$username,"email"=>$email,"password"=>$password,"country"=>$country,
-                "city"=>$city,"district"=>$district,"telephone"=>$telephone,"room_id"=>$room_id,"price"=>$price,"number"=>$number);
-            //$user = $request->all();
-            $user['username'] = Auth::user();
-            $user->update();
-        } else {
-            return response('Forbidden', 403);
+        $data = $request->all();
+
+        $email = $request->input('email') === $user->email?"":"unique:hotels";
+
+        $validateRequest = Validator::make($data,[
+            'name' => ['required', 'string'],
+            'desc' => ['required', 'string'],
+            'email' => ['required', 'string', 'email',"$email"],
+            'country' => ['required'],
+            'city' => ['required', 'string'],
+            'district' => ['required', 'string'],
+            'telephone' => ['required', 'numeric'],
+        ]);
+
+        if($validateRequest->fails()){
+            return redirect()->back()->with([$validateRequest->errors()]);
         }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->country = $request->input('country');
+        $user->city = $request->input('city');
+        $user->district = $request->input('district');
+        $user->telephone = $request->input('telephone');
+        $user->desc=$request->input("desc");
+        if($user->update())
+            return redirect(route('settings'));
+        return redirect()->back();
+
     }
     //delete hotels data
     public function delete(Request $request){
