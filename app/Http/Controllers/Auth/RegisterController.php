@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -56,28 +57,22 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
         return $this->registered($request , $user)
-            ?: $this->redirect($this->redirectPath());
+            ?: redirect($this->redirectPath());
             }
 
     protected function validator(array $data)
     {
-        $validationRequest = Validator::make($data,[
+        return Validator::make($data,[
             'name' => ['required', 'string'],
-            'username' => ['required', 'string',  'min:5', 'unique:hotels',
-                'regex:/(^([a-zA-Z]+)([0-9]+)?$)/u'],
+            'username' => ['required', 'string',  'min:5', 'unique:hotels'],
             'email' => ['required', 'string', 'email', 'unique:hotels'],
-            'password' => ['required', 'min:8', 'confirmed', 'string',
-                 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/',
-                'unique:hotels'],
-            'country' => ['required', 'country'],
+            'password' => ['required', 'min:2', 'confirmed', 'string'],
+            'country' => ['required'],
             'city' => ['required', 'string'],
             'district' => ['required', 'string'],
-            'telephone' => ['required', 'numeric', 'phone_number', 'size:11'],
+            'telephone' => ['required', 'numeric'],
         ]);
-
-        if ($validationRequest->fails()) {
-            return redirect()->back()->withErrors($validationRequest->errors());
-        }
+//        dd($data['password'].' '.$data['password-confirm']);
             }
 
             protected function create(array $data){
@@ -92,11 +87,6 @@ class RegisterController extends Controller
             'telephone'=>$data['telephone'],
 
         ]);
-    }
-
-    protected  function guard()
-    {
-
     }
 
 

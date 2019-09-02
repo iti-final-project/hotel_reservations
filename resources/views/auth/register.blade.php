@@ -36,6 +36,17 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="telephone">Telephone</label>
+                        <input type="text" class="form-control popover-dismiss @error('telephone') is-invalid @enderror" name="telephone" id="telephone" aria-describedby="telephoneHelp"
+                               value="{{ old('telephone') }}" placeholder="Enter telephone" required>
+                        @error('telephone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label for="countrySelector">Location</label>
                         <div class="form-group">
                             <select class="custom-select @error('country') is-invalid @enderror" name="country" id="country" required>
@@ -51,7 +62,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control @error('city') is-invalid @enderror" name="city" id="city" placeholder="Enter city" required>
+                            <input type="text" class="form-control @error('city') is-invalid @enderror" name="city" id="city" value="{{ old('city') }}" placeholder="Enter city" required>
                             @error('city')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -59,7 +70,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control @error('district') is-invalid @enderror" name="district" id="district" placeholder="Enter district" required>
+                            <input type="text" class="form-control @error('district') is-invalid @enderror" name="district" id="district" value="{{ old('district') }}" placeholder="Enter district" required>
                             @error('district')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -110,9 +121,9 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="password-confirm">Confirm Password</label>
+                        <label for="password_confirmation">Confirm Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password-confirm"  id="password-confirm"
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation"  id="password_confirmation"
                                    placeholder="Confirm Password" oncopy="return false" oncut="return false" onpaste="return false" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">

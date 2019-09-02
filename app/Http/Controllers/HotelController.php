@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Hotel;
+use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,10 +24,10 @@ class HotelController extends Controller
                 return view('settings.updateAbout')->with(['hotel'=>$user,'countries'=>$countries]);
                 break;
             case 'hotel_room':
-                return view('settings.updateRooms')->with(['rooms'=>$user->rooms]);
+                return view('settings.updateRooms')->with(['rooms'=>$user->rooms,'dbRooms'=> Room::all()]);
                 break;
             case 'hotel_image':
-                return view('settings.updateRooms')->with(['images'=>$user->images]);
+                return view('settings.updatePhotos')->with(['images'=>$user->images]);
                 break;
             case 'passwordChange':
                 return view('settings.updatePassword');

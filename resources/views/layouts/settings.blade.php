@@ -7,16 +7,16 @@
             <hr>
             <ul class="nav nav-pills flex-lg-column flex-sm-row">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('settings') }}">About</a>
+                    <a class="nav-link {{ Route::current()->getName() === 'settings'?'active':'' }}" href="{{ route('settings') }}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('hotel_room') }}">Hotel rooms</a>
+                    <a class="nav-link {{ Route::current()->getName() === 'hotel_room'?'active':'' }}" href="{{ route('hotel_room') }}">Hotel rooms</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('hotel_image') }}">Hotel images</a>
+                    <a class="nav-link {{ Route::current()->getName() === 'hotel_image'?'active':'' }}" href="{{ route('hotel_image') }}">Hotel images</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('passwordChange') }}">Change password</a>
+                    <a class="nav-link {{ Route::current()->getName() === 'passwordChange'?'active':'' }}" href="{{ route('passwordChange') }}">Change password</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="#">Delete Account</a>
