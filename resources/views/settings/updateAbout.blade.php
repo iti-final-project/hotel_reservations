@@ -2,6 +2,7 @@
 @section('updateContent')
     <h3>About</h3>
     <form method="post" action="{{ route('settings') }}" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ $hotel->name }}">
