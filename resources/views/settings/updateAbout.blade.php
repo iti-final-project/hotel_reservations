@@ -1,8 +1,9 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>About</h3>
-    <form method="put" action="{{ route('settings') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('settings') }}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="_method" value="put" />
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" id="name" value="{{ $hotel->name }}">

@@ -1,7 +1,9 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>Change Password</h3>
-    <form method="put" action="{{ route('passwordChange') }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('passwordChange') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="_method" value="put" />
         <div class="form-group">
             <label for="oldPassword">Old Password</label>
             <input type="password" class="form-control" name="oldPassword" id="oldPassword" placeholder="Enter old password" required>
