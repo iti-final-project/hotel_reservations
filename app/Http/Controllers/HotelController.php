@@ -27,9 +27,6 @@ class HotelController extends Controller
             case 'hotel_room':
                 return view('settings.updateRooms')->with(['rooms'=>$user->rooms,'dbRooms'=> Room::all()]);
                 break;
-            case 'hotel_image':
-                return view('settings.updatePhotos')->with(['images'=>$user->images]);
-                break;
             case 'passwordChange':
                 return view('settings.updatePassword');
                 break;
@@ -57,7 +54,7 @@ class HotelController extends Controller
         ]);
 
         if($validateRequest->fails()){
-            return redirect()->back()->with([$validateRequest->errors()]);
+            return redirect()->back()->with(['updated'=>false]);
         }
 
         $user->name = $request->input('name');
@@ -68,8 +65,8 @@ class HotelController extends Controller
         $user->telephone = $request->input('telephone');
         $user->desc=$request->input("desc");
         if($user->update())
-            return redirect(route('settings'));
-        return redirect()->back();
+            return redirect()->back()->with(['updated'=>true]);
+        return redirect()->back()->with(['updated'=>false]);
 
     }
     //delete hotels data

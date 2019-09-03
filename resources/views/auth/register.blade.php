@@ -109,7 +109,6 @@
                         </div>
                         <div id="popover-content-password" style="display: none">
                             <ul>
-                                <li>Must be unique.</li>
                                 <li>Must be at least 8 characters.</li>
                                 <li>Must have at least a number and uppercase letter and a symbol.</li>
                             </ul>

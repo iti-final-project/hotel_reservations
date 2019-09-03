@@ -44,9 +44,12 @@ Route::get('/settings/hotel_room','HotelController@showAuth')
 //    return response()->json('modified');
 //})
 //    ->middleware('authenticated');
-Route::get('/settings/hotel_image','HotelController@showAuth')
+Route::get('/settings/hotel_image','ImageController@listImages')
     ->name('hotel_image')
     ->middleware('authenticated');
+Route::post('/settings/hotel_image','ImageController@store')->middleware('authenticated');
+Route::put('/settings/hotel_image','ImageController@update')->middleware('authenticated');
+Route::delete('/settings/hotel_image','ImageController@delete')->middleware('authenticated');
 Route::get('/settings/password','HotelController@showAuth')
     ->name('passwordChange')
     ->middleware('authenticated');

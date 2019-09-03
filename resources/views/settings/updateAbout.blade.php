@@ -1,6 +1,22 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>About</h3>
+    @if(session()->has('updated'))
+        <div class="row">
+        @if(session('updated'))
+            <div class="col-10 border-success" style="border:1px dashed; background: lightgreen;">
+                <p style="color: darkgreen">
+                    About successfully updated.
+                </p>
+        @else
+            <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                <p style="color: darkred">
+                    Failed to update About.
+                </p>
+        @endif
+            </div>
+        </div>
+    @endisset
     <form method="post" action="{{ route('settings') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="put" />
