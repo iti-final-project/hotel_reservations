@@ -64,23 +64,22 @@ class RegisterController extends Controller
     {
         return Validator::make($data,[
             'name' => ['required', 'string'],
-            'username' => ['required', 'string',  'min:5', 'unique:hotels'],
+            'username' => ['required', 'string',  'min:5', 'unique:hotels','not_regex:/^d/'],
             'email' => ['required', 'string', 'email', 'unique:hotels'],
-            'password' => ['required', 'min:2', 'confirmed', 'string'],
+            'password' => ['required', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', 'confirmed', 'string'],
             'country' => ['required'],
             'city' => ['required', 'string'],
             'district' => ['required', 'string'],
             'telephone' => ['required', 'numeric'],
         ]);
-//        dd($data['password'].' '.$data['password-confirm']);
-            }
+    }
 
-            protected function create(array $data){
+    protected function create(array $data){
         return Hotel::create([
             'name'=>$data['name'],
-            'username'=>$data['username'],
+            'username'=>strtolower($data['username']),
             'email'=>$data['email'],
-            'password'=>$data['password'],
+            'password'=>Hash::make($data['password']),
             'country'=>$data['country'],
             'city'=>$data['city'],
             'district'=>$data['district'],

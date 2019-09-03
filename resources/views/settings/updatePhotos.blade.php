@@ -1,19 +1,6 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>Images</h3>
-    @if(session()->has('errors'))
-        <div class="row">
-            <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
-                <p style="color: darkred">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </p>
-            </div>
-        </div>
-    @endif
     @if(session()->has('added'))
         <div class="row">
             @if(session('added'))

@@ -39,7 +39,7 @@
                                 @if($hotel->desc)
                                     <p class="card-text">{{ $hotel->desc }}</p>
                                 @endif
-                                @php($fullAddress = implode(",", array_filter([$hotel->district,$hotel->city,$hotel->country])))
+                                @php($fullAddress = implode(", ", array_filter([$hotel->district,$hotel->city,$hotel->country])))
                                 @if($fullAddress)
                                 <p class="card-text">Location: {{$fullAddress}}</p>
                                 @endif
@@ -51,7 +51,7 @@
                 </div>
             </div>
         @endforeach
-        @if($pages !== 1)
+        @if($pages >= 1)
         <nav class="mr-auto ml-auto">
             <ul class="pagination">
                 @if($prev)
@@ -75,21 +75,20 @@
                     @endif
                 @endfor
                 <li class="page-item">
-                    @if($next)
-                        <li class="page-item">
-                            <a class="page-link" href="{{ route('hotels', ['start'=>$currentPage + 1]) }}{{ request()->getQueryString()?'?'.request()->getQueryString():'' }}">Next</a>
-                    @else
-                        <li class="page-item disabled">
-                            <span class="page-link">Next</span>
-                    @endif
+                @if($next)
+                    <li class="page-item">
+                        <a class="page-link" href="{{ route('hotels', ['start'=>$currentPage + 1]) }}{{ request()->getQueryString()?'?'.request()->getQueryString():'' }}">Next</a>
+                @else
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                @endif
                 </li>
             </ul>
         </nav>
         @endif
-    @else
         <div class="col-11 mr-auto ml-auto">
             <p class="text-muted font-weight-bold">
-            No data found...
+                No data found...
             </p>
         </div>
     @endif

@@ -16,7 +16,7 @@
 
         <div class="form-group">
             <label for="newPassword-confirm">Confirm new password</label>
-            <input type="password" class="form-control" name="newPassword-confirm" id="newPassword-confirm" placeholder="Confirm new password" required>
+            <input type="password" class="form-control" name="newPassword_confirmation" id="newPassword-confirm" placeholder="Confirm new password" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Save</button>

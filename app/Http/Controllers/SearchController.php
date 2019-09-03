@@ -98,7 +98,7 @@ class SearchController extends Controller
                 $searchBy = $_GET['searchBy']?$_GET['searchBy']:'name';
             else
                 $searchBy = 'name';
-            return $this->searchHotels($_GET['q'], $searchBy, $start);
+            return $this->searchHotels(trim($_GET['q']), $searchBy, $start);
         }
         else
             return $this->listHotels($start);

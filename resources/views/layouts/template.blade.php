@@ -54,9 +54,10 @@
                         </ul>
 
                         @if(Route::current()->getName() !== 'hotels')
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search by name"
+                        <form class="form-inline my-2 my-lg-0" action="{{ route('hotels') }}">
+                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search by name"
                                    aria-label="Search">
+                            <input type="hidden" name="searchBy" value="name">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                         </form>
                         @endif
@@ -97,8 +98,6 @@
                                 </li>
                             @endif
                         </ul>
-
-
                     </div>
                 </nav>
             </header>

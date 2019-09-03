@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Hotel;
+use App\HotelRoom;
+use App\Image;
 use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,16 +73,17 @@ class HotelController extends Controller
 
     }
     //delete hotels data
-    public function delete(Request $request){
+    public function delete(){
         $user = Hotel::find(Auth::id());
         if(Storage::disk('public')->exists($user->username)){
-            if(!(Storage::disk('public')->delete($user->username)))
+            if(!(Storage::disk('public')->deleteDirectory($user->username)))
                 return back()->withErrors(['Deleted'=>"Couldn't delete all hotel data, Please try again later."]);
         }
-        $user->rooms->delete();
-        $user->images->delete();
-        if($user->delete())
-            return response()->json('deleted');
-        return response()->json('failed');
+        HotelRoom::where('hotel_id',Auth::id())->delete();
+        Image::where('hotel_id',Auth::id())->delete();
+        if($user->delete()){
+            Auth::logout();
+        }
+        return back();
     }
 }

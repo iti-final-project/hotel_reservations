@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Hotel extends Authenticatable
 {
-    protected $fillable=['name','username','email','country','city','district','telephone'];
+    protected $fillable=['name','username','email','password','country','city','district','telephone'];
 
     protected $hidden = [
         'password', 'remember_token', 'clicks',
