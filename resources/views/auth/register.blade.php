@@ -23,7 +23,7 @@
                         <div id="popover-content-username" style="display: none">
                             <ul>
                                 <li>Must be at least 5 characters</li>
-                                <li>Can include alphabet and numbers only.</li>
+                                <li>Can include alphabet, numbers and underscore only.</li>
                                 <li>Cannot start with number</li>
                                 <li>Must be unique</li>
                             </ul>
@@ -132,8 +132,13 @@
                         </div>
                     </div>
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" name="licence" id="licence">
+                        <input type="checkbox" class="form-check-input @error('licence') is-invalid @enderror" name="licence" id="licence">
                         <label class="form-check-label" for="licence">I agree on website licence agreement</label>
+                        @error('licence')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>
@@ -169,7 +174,7 @@
                 }
             });
 
-            $("#password-confirm + .input-group-append").on("click",function () {
+            $("#password_confirmation + .input-group-append").on("click",function () {
                 let eye = $('[data-icon^=eye]');
                 let password = $("#password-confirm");
                 if (password.attr('type') === "password") {

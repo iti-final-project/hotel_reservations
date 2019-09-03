@@ -21,6 +21,7 @@
                 pointer-events: all;
             }
         </style>
+        @yield('style')
     </head>
     <body>
         <div class="container-fluid">

@@ -72,7 +72,7 @@ class SearchController extends Controller
         else{
             $data = Hotel::select('id','name','desc','username','country','city',
                 'district','updated_at')
-                ->orderBy('clicks', 'desc')->where("name", "=", $query)->orderBy('clicks')->offset($start)->limit($this->limit_no)->get();
+                ->orderBy('clicks', 'desc')->where("name", "like", $query)->orderBy('clicks')->offset($start)->limit($this->limit_no)->get();
         }
 
         $next = $start + 10 >= $count ? false : true;
@@ -98,7 +98,7 @@ class SearchController extends Controller
                 $searchBy = $_GET['searchBy']?$_GET['searchBy']:'name';
             else
                 $searchBy = 'name';
-            return $this->searchHotels(trim($_GET['q']), $searchBy, $start);
+            return $this->searchHotels('%'.trim($_GET['q']).'%', $searchBy, $start);
         }
         else
             return $this->listHotels($start);

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use  App\Hotel;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -64,13 +65,14 @@ class RegisterController extends Controller
     {
         return Validator::make($data,[
             'name' => ['required', 'string'],
-            'username' => ['required', 'string',  'min:5', 'unique:hotels','not_regex:/^d/'],
+            'username' => ['required', 'string',  'min:5', 'unique:hotels','not_regex:/^(\d)/','regex:/^(\w)+$/'],
             'email' => ['required', 'string', 'email', 'unique:hotels'],
             'password' => ['required', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', 'confirmed', 'string'],
             'country' => ['required'],
             'city' => ['required', 'string'],
             'district' => ['required', 'string'],
             'telephone' => ['required', 'numeric'],
+            'licence'=>'required'
         ]);
     }
 

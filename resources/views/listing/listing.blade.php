@@ -15,7 +15,7 @@
             </div>
         </form>
     </div>
-    @if(isset($hotels))
+    @if(count($hotels))
         @foreach($hotels as $hotel)
             @php($hotelImages = $hotel->images)
             <div class="col-11 mr-auto ml-auto">
@@ -86,6 +86,7 @@
             </ul>
         </nav>
         @endif
+    @else
         <div class="col-11 mr-auto ml-auto">
             <p class="text-muted font-weight-bold">
                 No data found...
