@@ -40,10 +40,9 @@ Route::get('/settings','HotelController@showAuth')
 Route::get('/settings/hotel_room','HotelController@showAuth')
     ->name('hotel_room')
     ->middleware('authenticated');
-//Route::put('/settings/hotel_room',function (){
-//    return response()->json('modified');
-//})
-//    ->middleware('authenticated');
+Route::post('/settings/hotel_room','HotelroomController@store')->middleware('authenticated');
+Route::put('/settings/hotel_room','HotelroomController@update')->middleware('authenticated');
+Route::delete('/settings/hotel_room','HotelroomController@delete')->middleware('authenticated');
 Route::get('/settings/hotel_image','ImageController@listImages')
     ->name('hotel_image')
     ->middleware('authenticated');

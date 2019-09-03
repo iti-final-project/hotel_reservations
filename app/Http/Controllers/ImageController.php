@@ -26,9 +26,12 @@ class ImageController extends Controller
         if ($validateRequest->fails()){
             return back()->withErrors($validateRequest->errors());
         }
+
+        $countMain = Image::where('hotel_id',Auth::id())->where('type','main')->count();
+
         $image = new Image();
         $image->link = Storage::disk('public')->put(Auth::user()->username,$request->file('uploadedImage'));
-        $image->type = $request->input('addType');
+        $image->type = $countMain?$request->input('addType'):'main';
         $image->desc = $request->input('addDescription');
         $image->hotel_id = Auth::id();
         if($image->save())

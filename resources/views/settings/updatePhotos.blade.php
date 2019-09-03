@@ -93,6 +93,14 @@
 @stop
 
 @section('scripts')
+    <script id="selectImageType" type="text/html">
+        <select class="custom-select imageType">
+            <option value="" selected>Image type</option>'
+            <option value="main">Main</option>'
+            <option value="extra">Extra</option>'
+        </select>
+    </script>
+
     <script>
         $(document).ready(function () {
             $('.edit').click(function () {
@@ -121,11 +129,7 @@
                         }
                     });
                 } else {
-                    parent.find('.imageType').attr('contentEditable', 'true').addClass('bg-white text-primary').get(0).innerHTML='<select class="custom-select imageType">' +
-                        '                                        <option value="" selected>Image type</option>' +
-                        '                                        <option value="main">Main</option>'+
-                        '                                        <option value="extra">Extra</option>'+
-                        '                                    </select>';
+                    parent.find('.imageType').attr('contentEditable', 'true').addClass('bg-white text-primary').get(0).innerHTML= $('#selectImageType').get(0).innerHTML;
                     parent.find('.imageDescription').attr('contentEditable', 'true').addClass('bg-white text-primary');
                     btn.innerHTML = 'Save';
                 }

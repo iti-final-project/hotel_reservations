@@ -19,7 +19,7 @@ class CreateImageTable extends Migration
             $table->unsignedBigInteger('hotel_id');
             $table->foreign('hotel_id')->references('id')->on('hotels');
             $table->enum('type',['main','extra']);
-            $table->string('desc');
+            $table->string('desc')->nullable();
             $table->timestamps();
         });
     }

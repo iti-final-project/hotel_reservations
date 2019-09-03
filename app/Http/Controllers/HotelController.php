@@ -6,6 +6,7 @@ use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -71,22 +72,15 @@ class HotelController extends Controller
     }
     //delete hotels data
     public function delete(Request $request){
-        if (Auth::check()) {
-            $user['username'] = Auth::user();
-            $user->delete();
+        $user = Hotel::find(Auth::id());
+        if(Storage::disk('public')->exists($user->username)){
+            if(!(Storage::disk('public')->delete($user->username)))
+                return back()->withErrors(['Deleted'=>"Couldn't delete all hotel data, Please try again later."]);
         }
-        else{
-            return response('Forbidden', 403);
-        }
-    }
-    //delete hotels_room
-    public function deleteroom(Request $request){
-        if (Auth::check()) {
-            $room = $request->all();
-            DB::delete('delete from hotel_room where id = ?',[$room['id']]);
-        }
-        else{
-            return response('Forbidden', 403);
-        }
+        $user->rooms->delete();
+        $user->images->delete();
+        if($user->delete())
+            return response()->json('deleted');
+        return response()->json('failed');
     }
 }

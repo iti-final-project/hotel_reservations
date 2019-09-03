@@ -1,6 +1,35 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>Rooms</h3>
+    @if(session()->has('errors'))
+        <div class="row">
+            <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                <p style="color: darkred">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                </p>
+            </div>
+        </div>
+    @endif
+    @if(session()->has('added'))
+        <div class="row">
+            @if(session('added'))
+                <div class="col-10 border-success" style="border:1px dashed; background: lightgreen;">
+                    <p style="color: darkgreen">
+                        Room added successfully.
+                    </p>
+                    @else
+                        <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                            <p style="color: darkred">
+                                Something went wrong, we couldn't add your room;
+                            </p>
+                            @endif
+                        </div>
+                </div>
+            @endisset
     <table class="table table-hover table-borderless">
         <thead>
         <tr>
@@ -37,7 +66,7 @@
                             <form method="post" action="{{ route('hotel_room') }}">
                                 @csrf
                                 <div class="form-group">
-                                    <select class="form-control" name="roomType">
+                                    <select class="form-control" name="room_id">
                                         @foreach($dbRooms as $dbRoom)
                                             <option value="{{ $dbRoom->id }}">{{ $dbRoom->type }}</option>
                                         @endforeach
@@ -65,7 +94,49 @@
     </div>
     @endif
 @stop
+
+
 @section('scripts')
+    <script id="addRoomHTML" type="text/html">
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-success btn-block" data-toggle="modal" data-target=".bd-example-modal-sm" aria-hidden="true" id="addRoom">Add room</button>
+                <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <h5 style="font-weight: bold">Add Room</h5>
+                                <hr>
+                                <form method="post" action="{{ route('hotel_room') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <select class="form-control" name="room_id">
+                                            @foreach($dbRooms as $dbRoom)
+                                                <option value="{{ $dbRoom->id }}">{{ $dbRoom->type }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="small">Room must be unique.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="addNumber" class="col-form-label">Number</label>
+                                        <input class="form-control" name="addNumber" id="addNumber">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="addPrice" class="col-form-label">Price</label>
+                                        <input class="form-control" name="addPrice" id="addPrice">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Add Room</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
     <script>
         $(document).ready(function () {
            $('.edit').click(function () {
@@ -77,6 +148,7 @@
                    let _token = "{{ csrf_token() }}";
                    let data = {
                        _token: _token,
+                       room_id: parent.attr('id'),
                        number: number,
                        price: price
                    };
@@ -115,12 +187,7 @@
                             if (status === "success" && result === 'deleted') {
                                 parent.remove();
                                 if(!($('#addRoom').length)){
-                                    let addRoom =
-                                        '<div class="row">' +
-                                    '        <div class="col-12">' +
-                                    '            <button class="btn btn-success btn-block" id="addRoom">Add room</button>' +
-                                    '        </div>' +
-                                    '    </div>';
+                                    let addRoom = $('#addRoomHTML').get(0).innerHTML;
                                     $(".table").after(addRoom);
                                 }
                             }
