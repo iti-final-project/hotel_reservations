@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-# John's Routes
 Route::get('/',function (){
     return view('home');
 })->name('homepage');
@@ -50,11 +49,8 @@ Route::get('/settings/password','HotelController@showAuth')
     ->name('passwordChange')
     ->middleware('authenticated');
 
-
-
-# Nayra's Routes
-Route::get('/listing/{start}/{query}/{by}','SearchController@Listing');
 Route::put('/settings','HotelController@updateAbout')->middleware('authenticated');
+Route::put('/settings/password','HotelController@changePassword')->middleware('authenticated');
 
 Auth::routes();
 

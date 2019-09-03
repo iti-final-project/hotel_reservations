@@ -176,7 +176,7 @@
 
             $("#password_confirmation + .input-group-append").on("click",function () {
                 let eye = $('[data-icon^=eye]');
-                let password = $("#password-confirm");
+                let password = $("#password_confirmation");
                 if (password.attr('type') === "password") {
                     password.attr('type', 'text');
                     eye.eq(1).toggleClass('fa-eye-slash').toggleClass('fa-eye');

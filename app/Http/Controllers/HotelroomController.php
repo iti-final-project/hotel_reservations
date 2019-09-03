@@ -34,7 +34,7 @@ class HotelroomController extends Controller
         $room->number = $request->input('addNumber');
         $room->price = $request->input('addPrice');
         if($room->save()) {
-            Hote::find(Auth::id())->touch();
+            Hotel::find(Auth::id())->touch();
             return back()->with(['added' => true]);
         }
         return back()->with(['added'=>false]);

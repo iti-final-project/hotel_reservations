@@ -11,7 +11,7 @@
                     @else
                         <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
                             <p style="color: darkred">
-                                Something went wrong, we couldn't add your room;
+                                Something went wrong, we couldn't add your room.
                             </p>
                             @endif
                         </div>

@@ -1,6 +1,22 @@
 @extends('layouts.settings')
 @section('updateContent')
     <h3>Change Password</h3>
+    @if(session()->has('updated'))
+        <div class="row">
+            @if(session('updated'))
+                <div class="col-10 border-success" style="border:1px dashed; background: lightgreen;">
+                    <p style="color: darkgreen">
+                        Password updated successfully.
+                    </p>
+                    @else
+                        <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                            <p style="color: darkred">
+                                Something went wrong, we couldn't update your password.
+                            </p>
+                            @endif
+                        </div>
+                </div>
+            @endisset
     <form method="post" action="{{ route('passwordChange') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="put" />

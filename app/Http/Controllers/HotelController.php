@@ -8,6 +8,7 @@ use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -88,5 +89,28 @@ class HotelController extends Controller
             Auth::logout();
         }
         return back();
+    }
+    public function changePassword(Request $request){
+        $user = Hotel::find(Auth::id());
+        $data = $request->all();
+        $oldPassword=$request->input('oldPassword');
+
+        if(Hash::check($oldPassword,$user->password)){
+            $validateRequest = Validator::make($data,[
+                'newPassword' => ['required', 'regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/', 'confirmed', 'string']
+            ]);
+
+            if($validateRequest->fails()){
+                return back()->withErrors($validateRequest->errors());
+            }
+
+            $user->password = Hash::make( $request->input('newPassword'));
+            $user -> timestamps = false;
+            if($user->update())
+                return back()->with(['updated'=>true]);
+            return back()->withErrors(['updated'=>false]);
+        }
+        return back()->withErrors(['update'=> 'Invalid old password']);
+
     }
 }

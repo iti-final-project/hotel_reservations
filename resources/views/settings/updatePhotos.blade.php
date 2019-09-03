@@ -8,13 +8,14 @@
                     <p style="color: darkgreen">
                         Image added successfully.
                     </p>
+                </div>
             @else
                 <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
                     <p style="color: darkred">
-                        Something went wrong, we couldn't add your image;
+                        Something went wrong, we couldn't add your image.
                     </p>
-            @endif
                 </div>
+            @endif
         </div>
     @endisset
     <table class="table table-hover table-borderless">
@@ -50,7 +51,7 @@
                             <form method="post" action="{{ route('hotel_image') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="input-group mb-3">
-                                    <div class="image">
+                                    <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="uploadedImage" id="uploadedImage" aria-describedby="uploadedImage">
                                         <label class="custom-file-label" for="uploadedImage">Choose file</label>
                                     </div>
@@ -88,8 +89,12 @@
         </select>
     </script>
 
+    <script src="{{ asset('js/bs-custom-file-input.min.js') }}"></script>
+
     <script>
         $(document).ready(function () {
+            bsCustomFileInput.init()
+
             $('.edit').click(function () {
                 let btn = $(this).find('.btn').get(0);
                 let parent = $(this).parent();
@@ -139,7 +144,7 @@
                                 parent.remove();
                             }
                         }
-                    })
+                    });
                 }
             });
 
