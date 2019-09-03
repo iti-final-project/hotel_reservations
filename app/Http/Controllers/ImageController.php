@@ -34,8 +34,10 @@ class ImageController extends Controller
         $image->type = $countMain?$request->input('addType'):'main';
         $image->desc = $request->input('addDescription');
         $image->hotel_id = Auth::id();
-        if($image->save())
-            return back()->with(['added'=>true]);
+        if($image->save()) {
+            Hotel::find(Auth::id())->touch();
+            return back()->with(['added' => true]);
+        }
         return back()->with(['added'=>false]);
     }
 
@@ -53,16 +55,20 @@ class ImageController extends Controller
         $image = Image::find($imageID);
         $image -> type = $request->input('modifyType');
         $image -> desc = $request->input('modifyDescription');
-        if ($image -> update())
+        if ($image -> update()) {
+            Hotel::find(Auth::id())->touch();
             return response()->json('modified');
+        }
         return response()->json('failed');
     }
 
     public function delete(Request $request){
         $imageID = $request->input('imageID');
         $image = Image::find($imageID);
-        if($image->delete() && Storage::disk('public')->delete($image->link))
+        if($image->delete() && Storage::disk('public')->delete($image->link)) {
+            Hotel::find(Auth::id())->touch();
             return response()->json('deleted');
+        }
         return response()->json('failed');
     }
 

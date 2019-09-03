@@ -33,8 +33,10 @@ class HotelroomController extends Controller
         $room->room_id = $roomID;
         $room->number = $request->input('addNumber');
         $room->price = $request->input('addPrice');
-        if($room->save())
-            return back()->with(['added'=>true]);
+        if($room->save()) {
+            Hote::find(Auth::id())->touch();
+            return back()->with(['added' => true]);
+        }
         return back()->with(['added'=>false]);
     }
 
@@ -54,16 +56,20 @@ class HotelroomController extends Controller
         $room -> number = $request -> input('number');
         $room -> price = $request -> input('price');
 
-        if ($room->update())
-            return response() -> json('modified');
+        if ($room->update()) {
+            $user->touch();
+            return response()->json('modified');
+        }
         return response() -> json('failed');
     }
 
     public function delete(Request $request){
         $roomID = $request->input('room_id');
         $user = Hotel::find(Auth::id());
-        if($user->rooms->where('room_id', $roomID)->first()->delete())
+        if($user->rooms->where('room_id', $roomID)->first()->delete()) {
+            $user->touch();
             return response()->json('deleted');
+        }
         return response()->json('failed');
     }
 }

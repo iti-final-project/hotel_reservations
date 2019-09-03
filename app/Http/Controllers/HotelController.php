@@ -16,6 +16,9 @@ class HotelController extends Controller
 {
     public function show($username){
         $user = Hotel::where('username',$username)->first();
+        $user->clicks += 1;
+        $user->timestamps = false;
+        $user->save();
         return view('profile')->with(['hotel'=>$user]);
     }
 

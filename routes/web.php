@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-# Aya's Routes
-//models
-
 # John's Routes
 Route::get('/',function (){
     return view('home');
@@ -62,16 +55,6 @@ Route::get('/settings/password','HotelController@showAuth')
 # Nayra's Routes
 Route::get('/listing/{start}/{query}/{by}','SearchController@Listing');
 Route::put('/settings','HotelController@updateAbout')->middleware('authenticated');
-
-
-# Yomna's Routes
-Route::post('profile','HotelController@show');
-Route::put('profile','HotelController@update');
-Route::post('profile1','HotelController@delete');
-Route::post('profile2','HotelController@deleteroom');
-
-
-
 
 Auth::routes();
 
