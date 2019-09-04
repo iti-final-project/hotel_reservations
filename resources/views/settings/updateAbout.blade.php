@@ -8,13 +8,14 @@
                 <p style="color: darkgreen">
                     About successfully updated.
                 </p>
+            </div>
         @else
             <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
                 <p style="color: darkred">
                     Failed to update About.
                 </p>
-        @endif
             </div>
+        @endif
         </div>
     @endisset
     <form method="post" action="{{ route('settings') }}" enctype="multipart/form-data">

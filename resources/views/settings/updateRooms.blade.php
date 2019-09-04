@@ -8,15 +8,16 @@
                     <p style="color: darkgreen">
                         Room added successfully.
                     </p>
-                    @else
-                        <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
-                            <p style="color: darkred">
-                                Something went wrong, we couldn't add your room.
-                            </p>
-                            @endif
-                        </div>
                 </div>
-            @endisset
+            @else
+                <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                    <p style="color: darkred">
+                        Something went wrong, we couldn't add your room.
+                    </p>
+                </div>
+            @endif
+        </div>
+    @endisset
     <table class="table table-hover table-borderless">
         <thead>
         <tr>

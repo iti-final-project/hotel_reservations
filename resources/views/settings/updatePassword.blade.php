@@ -8,15 +8,16 @@
                     <p style="color: darkgreen">
                         Password updated successfully.
                     </p>
-                    @else
-                        <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
-                            <p style="color: darkred">
-                                Something went wrong, we couldn't update your password.
-                            </p>
-                            @endif
-                        </div>
                 </div>
-            @endisset
+            @else
+                <div class="col-10 border-danger" style="border:1px dashed; background: lightcoral;">
+                    <p style="color: darkred">
+                        Something went wrong, we couldn't update your password.
+                    </p>
+                </div>
+            @endif
+            </div>
+        @endisset
     <form method="post" action="{{ route('passwordChange') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="put" />
